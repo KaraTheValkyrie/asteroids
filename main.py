@@ -3,9 +3,11 @@
 # throughout this file
 import pygame
 
-# this imports some variables that
-# we declare in another file
+# this imports code that we have
+# saved in other files
 from constants import *
+
+from player import *
 
 def main():
     print("Starting Asteroids!")
@@ -20,7 +22,8 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
-
+    # create the player object
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     while True:
         #handle exiting the game
@@ -30,6 +33,11 @@ def main():
         
         #render a black screen
         screen.fill(000000)
+
+        #render the player
+        player.draw(screen)
+
+        #update the display
         pygame.display.flip()
 
         #tell the game to wait 1/60 of a second
