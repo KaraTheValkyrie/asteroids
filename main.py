@@ -50,6 +50,12 @@ def main():
         #update the position and rotation for all objects
         updatable_objects.update(dt)
 
+        #check for asteroid collisions
+        for item in asteroids:
+            if item.collision(player):
+                print("Game over!")
+                return
+
         #render all objects
         for item in drawable_objects:
             item.draw(screen)
