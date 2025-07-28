@@ -6,8 +6,9 @@ import pygame
 # this imports code that we have
 # saved in other files
 from constants import *
-
-from player import *
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
+from player import Player
 
 def main():
     print("Starting Asteroids!")
@@ -22,8 +23,20 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
-    # create the player object
+    #create some groups to organize everything
+    updatable_objects = pygame.sprite.Group()
+    drawable_objects = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+
+    #add everything to the relevant groups
+    Player.containers = (updatable_objects, drawable_objects)
+    Asteroid.containers = (updatable_objects, drawable_objects, asteroids)
+    AsteroidField.containers = (updatable_objects)
+
+    # create the player and asteroid field objects
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    asteroid_field = AsteroidField()
+    
 
     while True:
         #handle exiting the game
@@ -34,12 +47,13 @@ def main():
         #render a black screen
         screen.fill(000000)
 
-        #update the player's rotation
-        player.update(dt)
+        #update the position and rotation for all objects
+        updatable_objects.update(dt)
 
-        #render the player
-        player.draw(screen)
-
+        #render all objects
+        for item in drawable_objects:
+            item.draw(screen)
+        
         #update the display
         pygame.display.flip()
 
