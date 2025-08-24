@@ -14,3 +14,11 @@ class Shot(CircleShape):
 
     def update(self, dt):
         self.position += self.velocity * dt
+
+    def screenwrap(self):
+        #we don't want shots to wrap around the screen, so this deletes the shot instead
+        if (self.position.x < (self.radius * -1) or
+            self.position.x > (self.radius + SCREEN_WIDTH) or
+            self.position.y > (self.radius + SCREEN_HEIGHT) or
+            self.position.y < (self.radius * -1)):
+            self.kill()

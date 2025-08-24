@@ -52,6 +52,5 @@ class Player(CircleShape):
         new_shot = Shot(self.position.copy())
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         new_shot.velocity = forward * PLAYER_SHOT_SPEED
-        
     
 
